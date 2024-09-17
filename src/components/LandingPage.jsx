@@ -6,7 +6,7 @@ import { CubeTransparentIcon } from '@heroicons/react/20/solid';
 const LandingPage = () => {
 	const navigate = useNavigate();
 	const handleRegister = (e) => {
-		navigate('/register');
+		navigate('/signup');
 	};
 	const handleLogin = (e) => {
 		navigate('/login');
@@ -32,7 +32,7 @@ const LandingPage = () => {
 							className='mr-4 ml-2 cursor-pointer py-1.5 font-medium bg-cyan-600'
 							onClick={handleRegister}
 						>
-							Register
+							Sign Up
 						</Button>
 						<Typography
 							className='mr-4 ml-2 cursor-pointer p-1.5 font-medium hover:bg-gray-200 rounded-lg'
