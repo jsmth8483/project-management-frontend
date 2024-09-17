@@ -11,7 +11,7 @@ const NavMenu = () => {
 				TaskFlow
 			</Typography>
 			<ul className='flex'>
-				<Typography as='a' href='/home.html' className='mx-2 p-2'>
+				<Typography as='a' href='/taskflow' className='mx-2 p-2'>
 					Log Out
 				</Typography>
 			</ul>
