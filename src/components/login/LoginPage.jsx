@@ -1,8 +1,8 @@
 import { Typography } from '@material-tailwind/react';
-import SignupForm from './SignupForm';
+import LoginForm from './LoginForm';
 import { ChevronLeftIcon } from '@heroicons/react/20/solid';
 
-const SignupPage = () => {
+const LoginPage = () => {
 	return (
 		<>
 			<Typography
@@ -15,10 +15,10 @@ const SignupPage = () => {
 				Back
 			</Typography>
 			<div className='flex items-center justify-center'>
-				<SignupForm />
+				<LoginForm />
 			</div>
 		</>
 	);
 };
 
-export default SignupPage;
+export default LoginPage;
