@@ -1,7 +1,40 @@
 import { Card, Typography, Input, Button } from '@material-tailwind/react';
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { backendConfig } from '../../config';
 
 const SignupForm = () => {
+	const [fullName, setFullName] = useState('');
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
+
+	const navigate = useNavigate();
+
+	const handleSignup = async () => {
+		try {
+			const response = await fetch(
+				`${backendConfig.authService}/api/auth/register`,
+				{
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({
+						email: email,
+						fullName: fullName,
+						password: password,
+					}),
+				}
+			);
+			const json = await response.json();
+			if (json.user) {
+				navigate('/');
+			}
+		} catch (err) {
+			console.log('Error during registration: ' + err.message);
+		}
+	};
+
 	return (
 		<Card color='transparent' shadow={false} className='w-fit m-10'>
 			<Typography variant='h4' color='blue-gray'>
@@ -17,6 +50,7 @@ const SignupForm = () => {
 						Full Name
 					</Typography>
 					<Input
+						id='fullNameInput'
 						type='text'
 						size='lg'
 						placeholder='FirstName LastName'
@@ -24,6 +58,7 @@ const SignupForm = () => {
 						labelProps={{
 							className: 'before:content-none after:content-none',
 						}}
+						onChange={(e) => setFullName(e.target.value)}
 					/>
 					<Typography
 						variant='h6'
@@ -33,6 +68,7 @@ const SignupForm = () => {
 						Email
 					</Typography>
 					<Input
+						id='emailInput'
 						type='email'
 						size='lg'
 						placeholder='email@mail.com'
@@ -40,6 +76,7 @@ const SignupForm = () => {
 						labelProps={{
 							className: 'before:content-none after:content-none',
 						}}
+						onChange={(e) => setEmail(e.target.value)}
 					/>
 					<Typography
 						variant='h6'
@@ -49,6 +86,7 @@ const SignupForm = () => {
 						Password
 					</Typography>
 					<Input
+						id='passwordInput'
 						type='password'
 						size='lg'
 						placeholder='********'
@@ -56,8 +94,11 @@ const SignupForm = () => {
 						labelProps={{
 							className: 'before:content-none after:content-none',
 						}}
+						onChange={(e) => setPassword(e.target.value)}
 					/>
-					<Button>Sign Up</Button>
+					<Button id='signUpBtn' onClick={handleSignup}>
+						Sign Up
+					</Button>
 					<Typography
 						color='gray'
 						className='mt-4 text-center font-normal'
