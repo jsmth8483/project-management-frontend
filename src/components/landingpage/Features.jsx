@@ -35,7 +35,7 @@ const FeatureCard = ({ featureDetails }) => {
 
 const Features = () => {
 	return (
-		<div className='py-32 px-10 bg-gray-100'>
+		<div className='py-28 px-10 bg-gray-100'>
 			<Typography
 				as='h1'
 				className='pb-10 text-center text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold'

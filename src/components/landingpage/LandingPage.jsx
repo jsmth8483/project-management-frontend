@@ -5,6 +5,7 @@ import { BoltIcon } from '@heroicons/react/20/solid';
 import Hero from './hero';
 import Features from './Features';
 import GetStarted from './GetStarted';
+import Footer from './Footer';
 
 const LandingPage = () => {
 	const navigate = useNavigate();
@@ -29,7 +30,7 @@ const LandingPage = () => {
 					<Typography
 						as='a'
 						href='/taskflow'
-						className='ml-2 mr-4 ml cursor-pointer py-1.5 font-semibold'
+						className='ml-2 mr-4 cursor-pointer py-1.5 font-semibold'
 					>
 						TaskFlow
 					</Typography>
@@ -56,6 +57,7 @@ const LandingPage = () => {
 			<Hero onGetStarted={handleSignup} />
 			<Features />
 			<GetStarted />
+			<Footer />
 		</>
 	);
 };

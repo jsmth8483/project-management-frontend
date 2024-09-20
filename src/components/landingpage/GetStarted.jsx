@@ -16,10 +16,8 @@ const GetStarted = () => {
 				Join thousands of teams already using TaskFlow to streamline
 				their projects and boost productivity.
 			</Typography>
-			<div>
-				<Button className='mr-4 ml-2' color='cyan'>
-					Start Fee Trial
-				</Button>
+			<div className='space-x-4'>
+				<Button color='cyan'>Start Fee Trial</Button>
 				<Button
 					variant='outlined'
 					className='border-cyan-500  hover:shadow-lg hover:shadow-cyan-500/40'
