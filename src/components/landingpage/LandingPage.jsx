@@ -3,15 +3,18 @@ import { useNavigate } from 'react-router-dom';
 import React from 'react';
 import { BoltIcon } from '@heroicons/react/20/solid';
 import Hero from './hero';
+import Features from './Features';
 
 const LandingPage = () => {
 	const navigate = useNavigate();
+
 	const handleSignup = (e) => {
 		navigate('/signup');
 	};
 	const handleLogin = (e) => {
 		navigate('/login');
 	};
+
 	return (
 		<>
 			<Navbar className='w-full max-w-full p-2 rounded-none border-b border-gray-200 shadow-sm text-blue-gray flex justify-between'>
@@ -50,6 +53,7 @@ const LandingPage = () => {
 				</List>
 			</Navbar>
 			<Hero onGetStarted={handleSignup} />
+			<Features />
 		</>
 	);
 };
