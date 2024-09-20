@@ -4,6 +4,7 @@ import React from 'react';
 import { BoltIcon } from '@heroicons/react/20/solid';
 import Hero from './hero';
 import Features from './Features';
+import GetStarted from './GetStarted';
 
 const LandingPage = () => {
 	const navigate = useNavigate();
@@ -36,7 +37,7 @@ const LandingPage = () => {
 				<List>
 					<div className='flex'>
 						<Button
-							className='mr-4 ml-2 cursor-pointer font-medium'
+							className='mr-4 ml-2'
 							color='cyan'
 							onClick={handleSignup}
 						>
@@ -44,7 +45,7 @@ const LandingPage = () => {
 						</Button>
 						<Button
 							variant='outlined'
-							className='mr-4 ml-2 cursor-pointer font-medium rounded-lg border-cyan-500 hover:shadow-lg hover:shadow-cyan-500/40'
+							className='mr-4 ml-2 rounded-lg border-cyan-500 hover:shadow-lg hover:shadow-cyan-500/40'
 							onClick={handleLogin}
 						>
 							Login
@@ -54,6 +55,7 @@ const LandingPage = () => {
 			</Navbar>
 			<Hero onGetStarted={handleSignup} />
 			<Features />
+			<GetStarted />
 		</>
 	);
 };
