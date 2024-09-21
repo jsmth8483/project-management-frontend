@@ -41,7 +41,7 @@ const LoginForm = () => {
 							className: 'before:content-none after:content-none',
 						}}
 					/>
-					<Button>Log In</Button>
+					<Button color='cyan'>Log In</Button>
 					<Typography
 						color='gray'
 						className='mt-4 text-center font-normal'

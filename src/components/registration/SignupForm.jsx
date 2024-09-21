@@ -96,7 +96,7 @@ const SignupForm = () => {
 						}}
 						onChange={(e) => setPassword(e.target.value)}
 					/>
-					<Button id='signUpBtn' onClick={handleSignup}>
+					<Button id='signUpBtn' color='cyan' onClick={handleSignup}>
 						Sign Up
 					</Button>
 					<Typography
