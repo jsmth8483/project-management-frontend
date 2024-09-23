@@ -1,7 +1,38 @@
 import { Card, Typography, Input, Button } from '@material-tailwind/react';
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { backendConfig } from '../../config';
 
 const LoginForm = () => {
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
+
+	const navigate = useNavigate();
+
+	const handleLogin = async () => {
+		try {
+			const response = await fetch(
+				`${backendConfig.authService}/api/auth/login`,
+				{
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({
+						email: email,
+						password: password,
+					}),
+				}
+			);
+
+			if (response.status === 201) {
+				navigate('/');
+			}
+		} catch (err) {
+			console.log('Error during login: ' + err.message);
+		}
+	};
+
 	return (
 		<Card color='transparent' shadow={false} className='w-fit m-10'>
 			<Typography variant='h4' color='blue-gray'>
@@ -24,6 +55,7 @@ const LoginForm = () => {
 						labelProps={{
 							className: 'before:content-none after:content-none',
 						}}
+						onChange={(e) => setEmail(e.target.value)}
 					/>
 					<Typography
 						variant='h6'
@@ -40,8 +72,11 @@ const LoginForm = () => {
 						labelProps={{
 							className: 'before:content-none after:content-none',
 						}}
+						onChange={(e) => setPassword(e.target.value)}
 					/>
-					<Button color='cyan'>Log In</Button>
+					<Button color='cyan' onClick={handleLogin}>
+						Log In
+					</Button>
 					<Typography
 						color='gray'
 						className='mt-4 text-center font-normal'
