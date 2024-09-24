@@ -20,6 +20,7 @@ const LoginForm = () => {
 				`${backendConfig.authService}/api/auth/login`,
 				{
 					method: 'POST',
+					credentials: 'include',
 					headers: {
 						'Content-Type': 'application/json',
 					},

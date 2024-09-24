@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { STATUS } from '../util/status.js';
 
 const initialState = {
-	user: {},
+	user: '',
 	token: null,
 	expiresAt: null,
 	isAuthenticated: false,
@@ -13,7 +13,7 @@ const initialState = {
 
 const AuthContext = React.createContext({
 	...initialState,
-	login: (user = {}, token = '', expiresAt = '') => {},
+	login: (user = '', token = '', expiresAt = '') => {},
 	logout: () => {},
 	updateUser: () => {},
 	setAuthenticationStatus: () => {},

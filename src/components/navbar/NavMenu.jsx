@@ -2,9 +2,11 @@ import { Button, List, Navbar, Typography } from '@material-tailwind/react';
 import Logo from '../logo/Logo';
 import { useNavigate } from 'react-router-dom';
 import { backendConfig } from '../../config';
+import { useAuth } from '../../contexts/AuthProvider';
 
 const NavMenu = () => {
 	const navigate = useNavigate();
+	const { user, token, logout } = useAuth();
 
 	const handleLogout = async () => {
 		try {
@@ -12,13 +14,16 @@ const NavMenu = () => {
 				`${backendConfig.authService}/api/auth/logout`,
 				{
 					method: 'POST',
+					credentials: 'include',
 					headers: {
 						'Content-Type': 'application/json',
+						Authorization: `Bearer ${token}`,
 					},
 				}
 			);
 
 			if (response.status === 204) {
+				logout();
 				navigate('/taskflow');
 			}
 		} catch (err) {
