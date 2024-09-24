@@ -2,6 +2,8 @@ import { Card, Typography, Input, Button } from '@material-tailwind/react';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { backendConfig } from '../../config';
+import { useAuth } from '../../contexts/AuthProvider';
+import { STATUS } from '../../util/status';
 
 const LoginForm = () => {
 	const [email, setEmail] = useState('');
@@ -9,8 +11,11 @@ const LoginForm = () => {
 
 	const navigate = useNavigate();
 
+	const { login, setAuthenticationStatus } = useAuth();
+
 	const handleLogin = async () => {
 		try {
+			setAuthenticationStatus(STATUS.PENDING);
 			const response = await fetch(
 				`${backendConfig.authService}/api/auth/login`,
 				{
@@ -25,7 +30,11 @@ const LoginForm = () => {
 				}
 			);
 
-			if (response.status === 201) {
+			if (response.status === 200) {
+				setAuthenticationStatus(STATUS.SUCCEEDED);
+				const { user, accessToken, accessTokenExpires } =
+					await response.json();
+				login(user, accessToken, accessTokenExpires);
 				navigate('/');
 			}
 		} catch (err) {

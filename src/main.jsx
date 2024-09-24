@@ -5,12 +5,15 @@ import { ThemeProvider } from '@material-tailwind/react';
 
 import App from './App.jsx';
 import './index.css';
+import { AuthProvider } from './contexts/AuthProvider.jsx';
 
 createRoot(document.getElementById('root')).render(
 	<StrictMode>
 		<Router>
 			<ThemeProvider>
-				<App />
+				<AuthProvider>
+					<App />
+				</AuthProvider>
 			</ThemeProvider>
 		</Router>
 	</StrictMode>
