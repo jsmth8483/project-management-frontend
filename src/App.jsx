@@ -1,5 +1,10 @@
 import './App.css';
-import { Routes, Route } from 'react-router-dom';
+import {
+	createBrowserRouter,
+	RouterProvider,
+	useLocation,
+	Navigate,
+} from 'react-router-dom';
 import MainPage from './components/MainPage';
 import LandingPage from './components/landingpage/LandingPage';
 import SignupPage from './components/registration/SignupPage';
@@ -54,16 +59,68 @@ function App() {
 		};
 	}, [expiresAt, isAuthenticated, refreshAccessToken]);
 
+	const router = createBrowserRouter([
+		{
+			path: '/',
+			element: (
+				<RequireAuth redirectTo='/signup'>
+					<MainPage />
+				</RequireAuth>
+			),
+		},
+		{
+			path: '/taskflow',
+			element: <LandingPage />,
+		},
+		{
+			path: '/login',
+			element: (
+				<RedirectIfLoggedIn redirectTo='/'>
+					<LoginPage />
+				</RedirectIfLoggedIn>
+			),
+		},
+		{
+			path: '/signup',
+			element: (
+				<RedirectIfLoggedIn redirectTo='/'>
+					<SignupPage />
+				</RedirectIfLoggedIn>
+			),
+		},
+	]);
+
 	return (
 		<>
-			<Routes>
-				<Route path='/' element={<MainPage />} />
-				<Route path='/taskflow' element={<LandingPage />} />
-				<Route path='/signup' element={<SignupPage />} />
-				<Route path='/login' element={<LoginPage />} />
-			</Routes>
+			<div className='App'>
+				<RouterProvider router={router} />
+			</div>
 		</>
 	);
 }
+
+const RequireAuth = ({ children, redirectTo }) => {
+	const { isAuthenticated } = useAuth();
+	const location = useLocation();
+
+	return isAuthenticated ? (
+		children
+	) : (
+		<Navigate to={redirectTo} state={{ from: location }} />
+	);
+};
+
+const RedirectIfLoggedIn = ({ children, redirectTo }) => {
+	const { isAuthenticated } = useAuth();
+	const location = useLocation();
+	return isAuthenticated ? (
+		<Navigate
+			to={location.state?.from?.pathname || redirectTo}
+			state={{ from: location }}
+		/>
+	) : (
+		children
+	);
+};
 
 export default App;
