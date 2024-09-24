@@ -12,6 +12,7 @@ import LoginPage from './components/login/LoginPage';
 import { useAuth } from './contexts/AuthProvider';
 import { useCallback, useEffect } from 'react';
 import { backendConfig } from './config';
+import PropTypes from 'prop-types';
 
 function App() {
 	const { login, logout, isAuthenticated, expiresAt } = useAuth();
@@ -113,6 +114,7 @@ const RequireAuth = ({ children, redirectTo }) => {
 const RedirectIfLoggedIn = ({ children, redirectTo }) => {
 	const { isAuthenticated } = useAuth();
 	const location = useLocation();
+
 	return isAuthenticated ? (
 		<Navigate
 			to={location.state?.from?.pathname || redirectTo}
@@ -121,6 +123,16 @@ const RedirectIfLoggedIn = ({ children, redirectTo }) => {
 	) : (
 		children
 	);
+};
+
+RequireAuth.propTypes = {
+	children: PropTypes.element.isRequired,
+	redirectTo: PropTypes.string.isRequired,
+};
+
+RedirectIfLoggedIn.propTypes = {
+	children: PropTypes.element.isRequired,
+	redirectTo: PropTypes.string.isRequired,
 };
 
 export default App;

@@ -1,4 +1,10 @@
-import React, { useCallback, useContext, useMemo, useReducer } from 'react';
+import React, {
+	createContext,
+	useCallback,
+	useContext,
+	useMemo,
+	useReducer,
+} from 'react';
 import PropTypes from 'prop-types';
 
 import { STATUS } from '../util/status.js';
@@ -11,11 +17,10 @@ const initialState = {
 	status: STATUS.PENDING,
 };
 
-const AuthContext = React.createContext({
+const AuthContext = createContext({
 	...initialState,
 	login: (user = '', token = '', expiresAt = '') => {},
 	logout: () => {},
-	updateUser: () => {},
 	setAuthenticationStatus: () => {},
 });
 
@@ -36,9 +41,6 @@ const authReducer = (state, action) => {
 				...initialState,
 				status: STATUS.IDLE,
 			};
-		}
-		case 'updateUser': {
-			return { ...state, user: action.payload.user };
 		}
 		case 'status': {
 			return {
@@ -72,15 +74,6 @@ const AuthProvider = ({ children }) => {
 		});
 	}, []);
 
-	const updateUser = useCallback((user) => {
-		dispatch({
-			type: 'updateUser',
-			payload: {
-				user,
-			},
-		});
-	}, []);
-
 	const setAuthenticationStatus = useCallback((status) => {
 		dispatch({
 			type: 'status',
@@ -95,10 +88,9 @@ const AuthProvider = ({ children }) => {
 			...state,
 			login,
 			logout,
-			updateUser,
 			setAuthenticationStatus,
 		}),
-		[state, setAuthenticationStatus, login, logout, updateUser]
+		[state, setAuthenticationStatus, login, logout]
 	);
 
 	return (

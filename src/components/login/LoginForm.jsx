@@ -8,12 +8,14 @@ import { STATUS } from '../../util/status';
 const LoginForm = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
+	const [error, setError] = useState('');
 
 	const navigate = useNavigate();
 
 	const { login, setAuthenticationStatus } = useAuth();
 
-	const handleLogin = async () => {
+	const handleLogin = async (e) => {
+		e.preventDefault();
 		try {
 			setAuthenticationStatus(STATUS.PENDING);
 			const response = await fetch(
@@ -37,9 +39,12 @@ const LoginForm = () => {
 					await response.json();
 				login(user, accessToken, accessTokenExpires);
 				navigate('/');
+			} else {
+				throw new Error('Email or password is incorrect');
 			}
 		} catch (err) {
 			console.log('Error during login: ' + err.message);
+			setError(err.message);
 		}
 	};
 
@@ -48,7 +53,10 @@ const LoginForm = () => {
 			<Typography variant='h4' color='blue-gray'>
 				Log In
 			</Typography>
-			<form className='mt-8 mb-2 w-80 max-w-screen-lg sm:w-96'>
+			<form
+				className='mt-8 mb-2 w-80 max-w-screen-lg sm:w-96'
+				onSubmit={(e) => handleLogin(e)}
+			>
 				<div className='flex flex-col mb-1 gap-6'>
 					<Typography
 						variant='h6'
@@ -66,6 +74,7 @@ const LoginForm = () => {
 							className: 'before:content-none after:content-none',
 						}}
 						onChange={(e) => setEmail(e.target.value)}
+						onFocus={() => setError('')}
 					/>
 					<Typography
 						variant='h6'
@@ -83,8 +92,12 @@ const LoginForm = () => {
 							className: 'before:content-none after:content-none',
 						}}
 						onChange={(e) => setPassword(e.target.value)}
+						onFocus={() => setError('')}
 					/>
-					<Button color='cyan' onClick={handleLogin}>
+					<Typography as='p' className='font-semibold' color='red'>
+						{error}
+					</Typography>
+					<Button color='cyan' type='submit'>
 						Log In
 					</Button>
 					<Typography

@@ -10,7 +10,8 @@ const SignupForm = () => {
 
 	const navigate = useNavigate();
 
-	const handleSignup = async () => {
+	const handleSignup = async (e) => {
+		e.preventDefault();
 		try {
 			const response = await fetch(
 				`${backendConfig.authService}/api/auth/register`,
@@ -28,7 +29,7 @@ const SignupForm = () => {
 			);
 			const json = await response.json();
 			if (json.user) {
-				navigate('/');
+				navigate('/login');
 			}
 		} catch (err) {
 			console.log('Error during registration: ' + err.message);
@@ -40,7 +41,10 @@ const SignupForm = () => {
 			<Typography variant='h4' color='blue-gray'>
 				Sign Up
 			</Typography>
-			<form className='mt-8 mb-2 w-80 max-w-screen-lg sm:w-96'>
+			<form
+				className='mt-8 mb-2 w-80 max-w-screen-lg sm:w-96'
+				onSubmit={(e) => handleSignup(e)}
+			>
 				<div className='flex flex-col mb-1 gap-6'>
 					<Typography
 						variant='h6'
@@ -96,7 +100,7 @@ const SignupForm = () => {
 						}}
 						onChange={(e) => setPassword(e.target.value)}
 					/>
-					<Button id='signUpBtn' color='cyan' onClick={handleSignup}>
+					<Button id='signUpBtn' color='cyan' type='submit'>
 						Sign Up
 					</Button>
 					<Typography
