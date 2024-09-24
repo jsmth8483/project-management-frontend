@@ -19,10 +19,8 @@ const FooterList = ({ title, list }) => {
 			</Typography>
 			<ul className='space-y-2'>
 				{list.map((item) => (
-					<li className='text-gray-500'>
-						<Link href='#' key={item}>
-							{item}
-						</Link>
+					<li className='text-gray-500' key={item}>
+						<Link href='#'>{item}</Link>
 					</li>
 				))}
 			</ul>

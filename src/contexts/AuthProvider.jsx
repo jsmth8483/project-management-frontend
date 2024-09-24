@@ -115,7 +115,7 @@ const useAuth = () => {
 	return context;
 };
 
-AuthProvider.PropTypes = {
+AuthProvider.propTypes = {
 	children: PropTypes.element.isRequired,
 };
 
