@@ -1,7 +1,7 @@
-import { Button, Navbar, Typography, List } from '@material-tailwind/react';
+import { Button, Navbar, List } from '@material-tailwind/react';
 import { useNavigate } from 'react-router-dom';
 import React from 'react';
-import Hero from './hero';
+import Hero from './Hero';
 import Features from './Features';
 import GetStarted from './GetStarted';
 import Footer from './Footer';

@@ -7,7 +7,7 @@ import {
 } from 'react-router-dom';
 import MainPage from './components/MainPage';
 import LandingPage from './components/landingpage/LandingPage';
-import SignupPage from './components/registration/SignupPage';
+import SignupPage from './components/signup/SignupPage';
 import LoginPage from './components/login/LoginPage';
 import { useAuth } from './contexts/AuthProvider';
 import { useCallback, useEffect } from 'react';
@@ -48,11 +48,13 @@ function App() {
 		let refreshAccessTokenTimerId;
 
 		if (isAuthenticated) {
+			// Set a timeout to refresh the access token just before it expires
 			refreshAccessTokenTimerId = setTimeout(() => {
 				refreshAccessToken();
 			}, new Date(expiresAt).getTime() - Date.now() - 10 * 1000);
 		}
 
+		// Cleanup function to clear the timeout if dependencies change or component unmounts
 		return () => {
 			if (isAuthenticated && refreshAccessTokenTimerId) {
 				clearTimeout(refreshAccessTokenTimerId);
