@@ -3,7 +3,6 @@
 ## Table of Contents
 
 -   Introduction
--   Features
 -   Installation
 -   API Integration
 -   Authentication
@@ -12,8 +11,6 @@
 ### Introduction
 
 The Project Management application is designed to help teams track the status of their projects and manage issues effectively. It provides a user-friendly interface for creating, updating, and monitoring project tasks and issues.
-
-### Features
 
 ### Installation
 
